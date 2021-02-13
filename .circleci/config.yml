@@ -67,8 +67,11 @@ jobs:
             terraform output -raw kubeconfig>~/.kube/config
             curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o /tmp/kubectl 
             curl -L https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.3.0/heptio-authenticator-aws_0.3.0_linux_amd64 -o /usr/local/bin/aws-iam-authenticator && chmod +x /usr/local/bin/aws-iam-authenticator
+            curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3 && chmod 700 get_helm.sh
             cat ~/.kube/config
-            mv /tmp/kubectl /usr/bin/kubectl && chmod +x /usr/bin/kubectl
+            mv /tmp/kubectl /usr/bin/kubectl && chmod +x /usr/bin/kubectl 
+            ./get_helm.sh
+            helm install my-release nginx-stable/nginx-ingress
             kubectl apply -f ./kubemanifests
   kube-delete:
     docker:
@@ -79,6 +82,13 @@ jobs:
       - run:
           name: kube delete
           command: |
+            apk add curl ca-certificates
+            mkdir ~/.kube
+            terraform output -raw kubeconfig>~/.kube/config
+            curl -L "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl" -o /tmp/kubectl 
+            curl -L https://github.com/kubernetes-sigs/aws-iam-authenticator/releases/download/v0.3.0/heptio-authenticator-aws_0.3.0_linux_amd64 -o /usr/local/bin/aws-iam-authenticator && chmod +x /usr/local/bin/aws-iam-authenticator
+            mv /tmp/kubectl /usr/bin/kubectl && chmod +x /usr/bin/kubectl  
+            
             kubectl delete -f ./kubemanifest
 workflows:
   version: 2
