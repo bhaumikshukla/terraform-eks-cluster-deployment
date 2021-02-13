@@ -85,11 +85,11 @@ workflows:
   plan_approve_apply:
     jobs:
       - plan-apply
-       - hold-apply:
+      - hold-apply:
            type: approval
            requires:
              - plan-apply
-       - apply:
+      - apply:
            requires:
              - hold-apply
       - kube-apply:
