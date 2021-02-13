@@ -70,7 +70,8 @@ jobs:
             curl https://get.helm.sh/helm-v3.5.2-linux-amd64.tar.gz | tar xvz && mv linux-amd64/helm /usr/bin/helm && chmod +x /usr/bin/helm
             cat ~/.kube/config
             mv /tmp/kubectl /usr/bin/kubectl && chmod +x /usr/bin/kubectl 
-            
+            helm repo add nginx-stable https://helm.nginx.com/stable
+            helm repo update
             helm install my-release nginx-stable/nginx-ingress
             kubectl apply -f ./kubemanifests
   kube-delete:
