@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: stateless-app-container
-          image: bhaumikshukla/go-stateless
+          image: bhaumikshukla/go-stateless:v2
           ports:
             - containerPort: 8000
 ---
