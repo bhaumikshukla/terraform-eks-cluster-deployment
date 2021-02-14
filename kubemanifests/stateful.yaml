@@ -87,7 +87,7 @@ metadata:
 data:
   initdb.sql: |
     Create database new_schema;
-    CREATE TABLE sample (ID int NOT NULL AUTO_INCREMENT,amount int NOT NULL,desc varchar(45) DEFAULT NULL,ts datetime NOT NULL,status int NOT NULL,PRIMARY KEY (ID),UNIQUE KEY ID_UNIQUE (ID))
+    CREATE TABLE sample (ID int NOT NULL AUTO_INCREMENT,amount int NOT NULL,`desc` varchar(45) DEFAULT NULL,ts datetime NOT NULL,status int NOT NULL,PRIMARY KEY (ID),UNIQUE KEY ID_UNIQUE (ID))
 
 ---
 apiVersion: v1
